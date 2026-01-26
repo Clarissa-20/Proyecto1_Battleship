@@ -14,7 +14,7 @@ import java.awt.*;
 public class CrearPlayer extends JFrame{
     
     public CrearPlayer(){
-        setTitle("Battleship - CrearPlayer");
+        setTitle("Battleship - Crear Player");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -81,7 +81,21 @@ public class CrearPlayer extends JFrame{
     }
     
     private void manejarCrearPlayer(String user, String pass){
+        /*if (contra.length() != 5) {
+            JOptionPane.showMessageDialog(this, "La contraseña debe tener exactamente 5 caracteres.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        boolean exito = sistema.crearPlayer(user, contra);
         
+        if (exito) {
+            Player nuevoPlayer = sistema.logIn(user, contra);
+            if (nuevoPlayer != null) {
+                MenuPrincipal menuPrincipal = new MenuPrincipal(sistema, nuevoPlayer);
+                menuPrincipal.setVisible(true);
+                this.dispose();
+            }
+            
+        }*/
     }
     
     private void volverMenuInicio(){
