@@ -12,30 +12,32 @@ import java.util.ArrayList;
  *
  * @author HP
  */
-public class MenuPrincipal extends JFrame{
+public class MenuPrincipal extends JFrame {
+
     Player playerActual;
-    
-    public MenuPrincipal(Player playerActual){
-        this.playerActual = playerActual;
-        
+
+    public MenuPrincipal() {  //Player playerActual
+        //this.playerActual = playerActual;
+
         setTitle("Battleship - Menu Principal");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        
-        ClaseFondo cf = new ClaseFondo("img aqui");
+
+        ClaseFondo cf = new ClaseFondo("/img/MenuPrincipalFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
-        
-        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
-        titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 30));
-        titulo.setForeground(Color.WHITE);
+
+        JLabel titulo = new JLabel("¡Bienvenido Jugador!", SwingConstants.CENTER);
+//        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
+        titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 40));
+        titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
         cf.add(titulo, BorderLayout.NORTH);
-        
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new GridLayout(5, 1, 20, 20));
-        panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 200, 60, 200));
+        //panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 200, 60, 200));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 230, 60, 230));
         panelBotones.setOpaque(false);
 
         JButton btnJugar = estiloBotones("JUGAR BATTLESHIP");
@@ -43,38 +45,39 @@ public class MenuPrincipal extends JFrame{
         JButton btnMiPerfil = estiloBotones("MI PERFIL");
         JButton btnReportes = estiloBotones("REPORTES");
         JButton btnSalir = estiloBotones("SALIR");
+        //ver si seria buena idea poner un btn de volver por cualquier cosa :)
 
         panelBotones.add(btnJugar);
         panelBotones.add(btnConfiguracion);
         panelBotones.add(btnMiPerfil);
         panelBotones.add(btnReportes);
         panelBotones.add(btnSalir);
-        
+
         cf.add(panelBotones, BorderLayout.CENTER);
-        
+
         this.add(cf);
 
         btnJugar.addActionListener(e -> iniciarJuego());
-        btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
+        /*btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
         btnReportes.addActionListener(e -> new Reportes(sistema, jugadorActual).setVisible(true));
-        btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, jugadorActual).setVisible(true));
+        btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, jugadorActual).setVisible(true));*/
         btnSalir.addActionListener(e -> manejarSalir());
     }
-    
+
     private JButton estiloBotones(String texto) {
         JButton btn = new JButton(texto);
-        Color color = new Color(220, 220, 220);
+        Color color = new Color(255, 204, 51);
         btn.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
-        btn.setForeground(color);
+        btn.setForeground(Color.WHITE);
         btn.setBackground(Color.BLACK);
         btn.setPreferredSize(new Dimension(250, 50));
         btn.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(color, 5),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+                BorderFactory.createLineBorder(color, 5),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         return btn;
     }
-    
-    private void iniciarJuego(){
+
+    private void iniciarJuego() {
         /*ArrayList<Player> jugadoresRegistrados = sistema.obtenerJugadores(); 
         
         if (jugadoresRegistrados != null && jugadoresRegistrados.size() >= 2) {
@@ -88,10 +91,15 @@ public class MenuPrincipal extends JFrame{
                 JOptionPane.ERROR_MESSAGE);
         }*/
     }
-    
-    private void manejarSalir(){
-        new MenuInicio(sistema).setVisible(true);
+
+    private void manejarSalir() {
+        //new MenuInicio(sistema).setVisible(true);
         this.dispose();
     }
-    
+
+    public static void main(String[] args) {
+        MenuPrincipal mp = new MenuPrincipal();
+        mp.setVisible(true);
+    }
+
 }

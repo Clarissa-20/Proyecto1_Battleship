@@ -19,12 +19,12 @@ public class LogIn extends JFrame{
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(20, 20));
         
-        ClaseFondo cf = new ClaseFondo("img aqui");
+        ClaseFondo cf = new ClaseFondo("/img/LogInFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
         
-        JLabel titulo = new JLabel("LOGIN", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("INICIO SESION", SwingConstants.CENTER);
         titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 50));
-        titulo.setForeground(Color.WHITE);
+        titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
         cf.add(titulo, BorderLayout.NORTH);
         
@@ -64,7 +64,7 @@ public class LogIn extends JFrame{
     
     private JLabel etiquetaEstilo(String texto){
         JLabel etiqueta = new JLabel(texto);
-        etiqueta.setForeground(new Color(124, 252, 0));
+        etiqueta.setForeground(new Color(255, 204, 51));
         etiqueta.setFont(new Font("Bodoni Bd BT", Font.BOLD, 30));
         return etiqueta;
     }
@@ -75,7 +75,7 @@ public class LogIn extends JFrame{
         btn.setForeground(Color.WHITE);
         btn.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
         btn.setPreferredSize(new Dimension(250, 50));
-        btn.setBorder(BorderFactory.createLineBorder(new Color(124, 252, 0), 5));
+        btn.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
         return btn;
     }
     
@@ -95,5 +95,10 @@ public class LogIn extends JFrame{
         MenuInicio mi = new MenuInicio();
         mi.setVisible(true);
         this.dispose();
+    }
+    
+    public static void main(String[] args) {
+        LogIn lg = new LogIn();
+        lg.setVisible(true);
     }
 }

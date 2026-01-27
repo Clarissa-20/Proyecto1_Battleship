@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Battleship {
     
     private ArrayList<Player> listaPlayers;
-    private Player playerActual; //player que inicio la partida
+    private Player playerActual; //player que inicio la partida, que por default es el player1
     private String dificultad; //EASY, NORMAL, EXPERT, GENIUS
     private String modoJuego; //TUTO, ARCADE
     
