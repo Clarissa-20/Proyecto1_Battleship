@@ -13,12 +13,12 @@ import java.util.ArrayList;
  * @author HP
  */
 public class MenuPrincipal extends JFrame {
+    private Player playerActual;
+    private Battleship sistema;
 
-    Player playerActual;
-
-    public MenuPrincipal() {  //Player playerActual
-        //this.playerActual = playerActual;
-
+    public MenuPrincipal(Player playerActual, Battleship sistema){
+        this.playerActual = playerActual;
+        this.sistema = sistema;
         setTitle("Battleship - Menu Principal");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,15 +28,14 @@ public class MenuPrincipal extends JFrame {
         ClaseFondo cf = new ClaseFondo("/img/MenuPrincipalFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
 
-        JLabel titulo = new JLabel("¡Bienvenido Jugador!", SwingConstants.CENTER);
-//        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
+        //JLabel titulo = new JLabel("¡Bienvenido Jugador!", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
         titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 40));
         titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
         cf.add(titulo, BorderLayout.NORTH);
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new GridLayout(5, 1, 20, 20));
-        //panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 200, 60, 200));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 230, 60, 230));
         panelBotones.setOpaque(false);
 
@@ -59,8 +58,8 @@ public class MenuPrincipal extends JFrame {
 
         btnJugar.addActionListener(e -> iniciarJuego());
         /*btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
-        btnReportes.addActionListener(e -> new Reportes(sistema, jugadorActual).setVisible(true));
-        btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, jugadorActual).setVisible(true));*/
+        btnReportes.addActionListener(e -> new Reportes(sistema, jugadorActual).setVisible(true));*/
+        btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, playerActual).setVisible(true));
         btnSalir.addActionListener(e -> manejarSalir());
     }
 
@@ -93,13 +92,7 @@ public class MenuPrincipal extends JFrame {
     }
 
     private void manejarSalir() {
-        //new MenuInicio(sistema).setVisible(true);
+        new MenuInicio(sistema).setVisible(true);
         this.dispose();
     }
-
-    public static void main(String[] args) {
-        MenuPrincipal mp = new MenuPrincipal();
-        mp.setVisible(true);
-    }
-
 }

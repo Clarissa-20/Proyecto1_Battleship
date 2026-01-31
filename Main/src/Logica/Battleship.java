@@ -12,31 +12,56 @@ import java.util.ArrayList;
  */
 public class Battleship {
     
-    private ArrayList<Player> listaPlayers;
+    private Player[] listaPlayers;
+    private int contadorPlayers;
     private Player playerActual; //player que inicio la partida, que por default es el player1
     private String dificultad; //EASY, NORMAL, EXPERT, GENIUS
     private String modoJuego; //TUTO, ARCADE
+    private String[][] tableroP1;
+    private String[][] tableroP2;
     
     public Battleship(){
-        this.listaPlayers = new ArrayList<>();
+        this.listaPlayers = new Player[100];
         this.playerActual = null;
         this.dificultad = "NORMAL";
         this.modoJuego = "TUTORIAL";
+        this.tableroP1 = new String[8][8];
+        this.tableroP2 = new String[8][8];
+        
+        limpiarTableros();
     }
     
-    public boolean crearPlayer(String user, String pass){
-        if(buscarPlayer(user)==null){
-            Player nuevo = new Player(user, pass);
-            listaPlayers.add(nuevo);
+    private void limpiarTableros(){ //
+        for(int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                tableroP1[i][j] = "~";
+                tableroP2[i][j] = "~";
+            }
+        }
+    }
+    
+    public boolean crearPlayer(String user, String pass){ //
+        if(buscarPlayer(user)==null && contadorPlayers<listaPlayers.length){
+            listaPlayers[contadorPlayers] = new Player(user, pass);
+            contadorPlayers++;
             return true;
         }
         return false;
     }
     
-    public Player buscarPlayer(String user){
+    /*public Player buscarPlayer(String user){ 
         for(Player p: listaPlayers){
             if(p.getUsername().equals(user)){
                 return p;
+            }
+        }
+        return null;
+    }*/
+    
+    public Player buscarPlayer(String user) {
+        for (int i = 0; i < contadorPlayers; i++) {
+            if (listaPlayers[i].getUsername().equals(user)) {
+                return listaPlayers[i];
             }
         }
         return null;
@@ -59,8 +84,12 @@ public class Battleship {
         return playerActual;
     }
     
-    public ArrayList getListaPlayers(){
+    public Player[] getListaPlayers(){
         return listaPlayers;
+    }
+    
+    public int getContadorPlayers(){
+        return contadorPlayers;
     }
     
     public String getDificultad(){

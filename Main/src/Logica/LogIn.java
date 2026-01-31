@@ -11,8 +11,10 @@ import java.awt.*;
  * @author HP
  */
 public class LogIn extends JFrame{
+    private Battleship sistema;
     
-    public LogIn(){
+    public LogIn(Battleship sistema){
+        this.sistema = sistema;
         setTitle("BattleShip - LogIn");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,26 +81,22 @@ public class LogIn extends JFrame{
         return btn;
     }
     
-    private void manejarLogIn(String user, String pass){
-        /*Player playerLogeago = battleship.logIn(user, pass);
-        if(playerLogeado != null){
-            JOptionPane.showMessageDialog(this, "¡Bienvenido, "+user+"!");
-            MenuPrincipal mp = new MenuPrincipal();
-            mp.setVisible(true);
+    private void manejarLogIn(String user, String contra) {
+        Player playerLogeado = sistema.logIn(user, contra);
+        
+        if (playerLogeado != null) {
+            JOptionPane.showMessageDialog(this, "¡Bienvenido, " + user + "!", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            MenuPrincipal menuPrincipal = new MenuPrincipal(playerLogeado, sistema);
+            menuPrincipal.setVisible(true);
             this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos o no existen.");
-        }*/
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos o no existe.", "Error de Login", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void volverMenuInicio(){
-        MenuInicio mi = new MenuInicio();
+        MenuInicio mi = new MenuInicio(sistema);
         mi.setVisible(true);
         this.dispose();
-    }
-    
-    public static void main(String[] args) {
-        LogIn lg = new LogIn();
-        lg.setVisible(true);
     }
 }

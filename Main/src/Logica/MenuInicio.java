@@ -12,8 +12,10 @@ import javax.swing.*;
  * @author HP
  */
 public class MenuInicio extends JFrame {
+    private Battleship sistema;
 
-    public MenuInicio() {
+    public MenuInicio(Battleship sistema){
+        this.sistema = sistema;
         setTitle("Battleship - Menú Inicio");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,19 +66,14 @@ public class MenuInicio extends JFrame {
     }
 
     private void mostrarLogIn() {
-        LogIn lg = new LogIn();
+        LogIn lg = new LogIn(sistema);
         lg.setVisible(true);
         this.dispose();
     }
-
+    
     private void mostrarCrearPlayer() {
-        CrearPlayer cp = new CrearPlayer();
+        CrearPlayer cp = new CrearPlayer(sistema);
         cp.setVisible(true);
         this.dispose();
-    }
-
-    public static void main(String[] args) {
-        MenuInicio mi = new MenuInicio();
-        mi.setVisible(true);
     }
 }
