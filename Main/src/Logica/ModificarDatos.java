@@ -16,9 +16,6 @@ public class ModificarDatos extends JFrame{
     private Player playerActual;
     private JPasswordField txtviejaPass, txtnuevaPass;
     private JTextField txtviejoUser, txtnuevoUser;
-    private final Color COLOR_PRIMARIO = new Color(150, 0, 0);
-    private final Color COLOR_TEXTO = Color.WHITE;
-    private final Font FONT_LABEL = new Font("Bodoni Bd BT", Font.BOLD, 20);
     
     public ModificarDatos(Battleship sistema, Player playerActual){
         this.sistema = sistema;
@@ -29,15 +26,15 @@ public class ModificarDatos extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         
-        ClaseFondo cf = new ClaseFondo("/img/.png");
+        ClaseFondo cf = new ClaseFondo("/img/MiPerfilFondo.png");
         cf.setLayout(new BorderLayout());
-        cf.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        cf.setBorder(BorderFactory.createEmptyBorder(60, 60, 60, 90));
         
         JPanel panel = new JPanel(new GridLayout(6, 2, 10, 10));
         panel.setOpaque(false);
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(COLOR_TEXTO, 5), "MODIFICAR DATOS",
-            TitledBorder.LEFT, TitledBorder.TOP, FONT_LABEL.deriveFont(Font.BOLD, 25), COLOR_TEXTO));
+            BorderFactory.createLineBorder(Color.BLACK, 5), "MODIFICAR DATOS",
+            TitledBorder.LEFT, TitledBorder.TOP, new Font("Bodoni Bd BT", Font.BOLD, 30), new Color(255, 204, 51)));
         
         txtviejoUser = new JTextField(5);
         txtnuevoUser = new JTextField(5);
@@ -47,13 +44,15 @@ public class ModificarDatos extends JFrame{
         txtnuevaPass = new JPasswordField(5);
         JButton btnCambiarPass = new JButton("CAMBIAR CONTRASEÑA");
         
-        btnCambiarPass.setBackground(COLOR_PRIMARIO);
-        btnCambiarPass.setForeground(COLOR_TEXTO);
-        btnCambiarPass.setFont(FONT_LABEL.deriveFont(Font.BOLD));
+        btnCambiarPass.setBackground(Color.BLACK);
+        btnCambiarPass.setForeground(Color.WHITE);
+        btnCambiarPass.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
+        btnCambiarPass.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
         
-        btnCambiarUser.setBackground(COLOR_PRIMARIO);
-        btnCambiarUser.setForeground(COLOR_TEXTO);
-        btnCambiarUser.setFont(FONT_LABEL.deriveFont(Font.BOLD));
+        btnCambiarUser.setBackground(Color.BLACK);
+        btnCambiarUser.setForeground(Color.WHITE);
+        btnCambiarUser.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
+        btnCambiarUser.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
         
         panel.add(crearLabel("USERNAME ACTUAL:"));
         panel.add(txtviejoUser);
@@ -73,10 +72,10 @@ public class ModificarDatos extends JFrame{
         btnCambiarPass.addActionListener(e -> manejarCambioPass());*/
         
         JButton btnVolver = new JButton("VOLVER");
-        btnVolver.setFont(FONT_LABEL);
-        btnVolver.setForeground(COLOR_TEXTO);
-        btnVolver.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-        btnVolver.setBackground(new Color(153, 0, 0));
+        btnVolver.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
+        btnVolver.setBackground(Color.BLACK);
         btnVolver.setPreferredSize(new Dimension(250, 50));
         btnVolver.addActionListener(e -> vtnVolver());
         
@@ -91,8 +90,8 @@ public class ModificarDatos extends JFrame{
     
     private JLabel crearLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(FONT_LABEL);
-        label.setForeground(COLOR_TEXTO);
+        label.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        label.setForeground(Color.WHITE);
         return label;
     }
     

@@ -13,24 +13,20 @@ import javax.swing.border.TitledBorder;
  * @author HP
  */
 public class VerDatos extends JFrame{
-    private Player jugadorActual;
-    private Battleship miSistema;
-    
-    private final Color COLOR_TEXTO = Color.WHITE;
-    private final Color COLOR_SECUNDARIO = new Color(30, 30, 30);
-    private final Font FONT_LABEL = new Font("Bodoni Bd BT", Font.BOLD, 25);
+    private Player playerActual;
+    private Battleship sistema;
 
-    public VerDatos(Player jugadorActual) {
-        super("Battleship - Información de la Cuenta - " + jugadorActual.getUsername());
+    public VerDatos(Player playerActual) {
+        super("Battleship - Información de la Cuenta - " + playerActual.getUsername());
 
-        this.jugadorActual = jugadorActual;
+        this.playerActual = playerActual;
         
         setSize(800, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        ClaseFondo cp = new ClaseFondo("/img/.png");
+        ClaseFondo cp = new ClaseFondo("/img/MiPerfilFondo.png");
         cp.setLayout(new BorderLayout());
         cp.setBorder(BorderFactory.createEmptyBorder(90, 90, 90, 90));
 
@@ -38,55 +34,63 @@ public class VerDatos extends JFrame{
         panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(90, 90, 90, 90));
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(COLOR_TEXTO, 5), "MI INFORMACION",
-            TitledBorder.LEFT, TitledBorder.TOP, FONT_LABEL.deriveFont(Font.BOLD, 25), COLOR_TEXTO));
+            BorderFactory.createLineBorder(Color.BLACK, 5), "MI INFORMACIÓN",
+            TitledBorder.LEFT, TitledBorder.TOP, new Font("Bodoni Bd BT", Font.BOLD, 30), new Color(255, 204, 51)));
 
+        //user
         JLabel nombre = new JLabel("USUARIO:");
-        nombre.setFont(FONT_LABEL);
-        nombre.setForeground(COLOR_TEXTO);
+        nombre.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        nombre.setForeground(Color.WHITE);
         nombre.setPreferredSize(new Dimension(100, 30));
 
-        JTextField txtUsername = new JTextField(jugadorActual.getUsername());
+        JTextField txtUsername = new JTextField(playerActual.getUsername());
         txtUsername.setEditable(false);
-        txtUsername.setFont(FONT_LABEL);
-        txtUsername.setBackground(COLOR_SECUNDARIO);
-        txtUsername.setForeground(COLOR_TEXTO);
+        txtUsername.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        txtUsername.setBackground(Color.BLACK);
+        txtUsername.setForeground(Color.WHITE);
+        txtUsername.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 
+        //puntos
         JLabel puntos = new JLabel("PUNTOS:");
-        puntos.setFont(FONT_LABEL);
-        puntos.setForeground(COLOR_TEXTO);
-        JLabel txtPuntos = new JLabel(String.valueOf(jugadorActual.getPuntos()));
-        txtPuntos.setFont(FONT_LABEL);
-        txtPuntos.setForeground(COLOR_TEXTO);
-        txtPuntos.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
+        puntos.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        puntos.setForeground(Color.WHITE);
         puntos.setPreferredSize(new Dimension(100, 30));
+        
+        JLabel txtPuntos = new JLabel(String.valueOf(playerActual.getPuntos()));
+        txtPuntos.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        txtPuntos.setForeground(Color.WHITE);
+        txtPuntos.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 
+        
+        //fecha ingreso
         JLabel registro = new JLabel("FECHA DE INGRESO:");
-        registro.setFont(FONT_LABEL);
-        registro.setForeground(COLOR_TEXTO);
-        JLabel txtRegistro = new JLabel(jugadorActual.getFechaIngreso().toString());
-        txtRegistro.setFont(FONT_LABEL);
-        txtRegistro.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-        txtRegistro.setForeground(Color.WHITE);
+        registro.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        registro.setForeground(Color.WHITE);
         registro.setPreferredSize(new Dimension(100, 30));
         
-        JLabel estado = new JLabel("ESTADO DE CUENTA:");
-        estado.setFont(FONT_LABEL);
-        estado.setForeground(COLOR_TEXTO);
+        JLabel txtRegistro = new JLabel(playerActual.getFechaIngreso().toString());
+        txtRegistro.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        txtRegistro.setForeground(Color.WHITE);
+        txtRegistro.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
         
-        String estadoTexto = jugadorActual.isActivo() ? "ACTIVO" : "INACTIVO";
-        Color color = jugadorActual.isActivo() ? Color.GREEN : Color.RED;
+        //estado user
+        JLabel estado = new JLabel("ESTADO DE CUENTA:");
+        estado.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        estado.setForeground(Color.WHITE);
+        
+        String estadoTexto = playerActual.isActivo() ? "ACTIVO" : "INACTIVO";
+        //Color color = playerActual.isActivo() ? Color.GREEN : Color.RED;
 
         JLabel txtEstado = new JLabel(estadoTexto);
-        txtEstado.setFont(FONT_LABEL);
-        txtEstado.setForeground(color);
+        txtEstado.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        txtEstado.setForeground(Color.WHITE);
         txtEstado.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
         
         JButton btnVolver = new JButton("VOLVER");
-        btnVolver.setFont(FONT_LABEL);
-        btnVolver.setForeground(COLOR_TEXTO);
-        btnVolver.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-        btnVolver.setBackground(new Color(153, 0, 0));
+        btnVolver.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
+        btnVolver.setBackground(Color.BLACK);
         btnVolver.setPreferredSize(new Dimension(250, 50));
         btnVolver.addActionListener(e -> vtnVolver());
         
@@ -109,8 +113,9 @@ public class VerDatos extends JFrame{
     }
     
     private void vtnVolver(){
-        new MiPerfil(miSistema, jugadorActual).setVisible(true);
-        this.dispose(); 
+        MiPerfil mp = new MiPerfil(sistema, playerActual);
+        mp.setVisible(true);
+        this.dispose();
     }
     
 }

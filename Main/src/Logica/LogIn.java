@@ -24,7 +24,7 @@ public class LogIn extends JFrame{
         ClaseFondo cf = new ClaseFondo("/img/LogInFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
         
-        JLabel titulo = new JLabel("INICIO SESION", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("INICIO SESIÓN", SwingConstants.CENTER);
         titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 50));
         titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));

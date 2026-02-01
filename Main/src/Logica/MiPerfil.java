@@ -15,10 +15,6 @@ public class MiPerfil extends JFrame{
     private Player playerActual;
     private Battleship sistema;
     
-    private final Color color1 = new Color(150, 0, 0);
-    private final Color colorTexto = Color.WHITE;
-    private final Font btnFont = new Font("Bodoni Bd BT", Font.BOLD, 20);
-    
     public MiPerfil(Battleship sistema, Player playerActual){
         this.sistema = sistema;
         this.playerActual = playerActual;
@@ -34,12 +30,12 @@ public class MiPerfil extends JFrame{
     }
     
     private void initComponents(){
-        ClaseFondo cf = new ClaseFondo("/img/MenuPrincipalFondo.png");
+        ClaseFondo cf = new ClaseFondo("/img/MiPerfilFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
         
         JLabel titulo = new JLabel("MI CUENTA", SwingConstants.CENTER);
-        titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 24));
-        titulo.setForeground(colorTexto);
+        titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 40));
+        titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
         
         JPanel panelBotones = new JPanel();
@@ -70,26 +66,26 @@ public class MiPerfil extends JFrame{
     
     private JButton crearBoton(String texto){
         JButton btn = new JButton(texto);
-        btn.setFont(btnFont);
-        btn.setBackground(color1);
-        btn.setForeground(colorTexto);
+        btn.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        btn.setBackground(Color.BLACK);
+        btn.setForeground(Color.WHITE);
         btn.setFocusPainted(false);
         btn.setPreferredSize(new Dimension(250, 50));
         
         btn.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.WHITE, 5),
+            BorderFactory.createLineBorder(new Color(255, 204, 51), 5),
             BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         return btn;
     }
     
-    private JButton btnEliminar(String texto){
+    /*private JButton btnEliminar(String texto){
         JButton btn = new JButton(texto);
         btn.setFont(btnFont);
         btn.setBackground(Color.RED.darker());
         btn.setForeground(colorTexto);
         btn.setFocusPainted(false);
         return btn;
-    }
+    }*/
     
     private void VerMisDatos(){
         VerDatos info = new VerDatos(playerActual);

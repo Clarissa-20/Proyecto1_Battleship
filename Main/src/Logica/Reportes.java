@@ -4,10 +4,132 @@
  */
 package Logica;
 
+import java.awt.*;
+import javax.swing.*;
+
 /**
  *
  * @author HP
  */
-public class Reportes {
+public class Reportes extends JFrame{
+    private Battleship sistema;
+    private Player playerActual;
+
+    public Reportes(Battleship sistema, Player jugador) {
+        this.sistema = sistema;
+        this.playerActual = jugador;
+        
+        setTitle("Battleship - Reportes");
+        setSize(900, 800);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        ClaseFondo cf = new ClaseFondo("/img/ReportesFondo.png");
+        cf.setLayout(new BorderLayout(20, 20));
+        
+        JLabel titulo = new JLabel("REPORTES", SwingConstants.CENTER);
+        titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 50));
+        titulo.setForeground(new Color(255, 204, 51));
+        titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
+        cf.add(titulo, BorderLayout.NORTH);
+        
+        JPanel panelCentral = new JPanel(new GridLayout(2, 1, 10, 10));
+        panelCentral.setOpaque(false);
+        panelCentral.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 70));
+
+        panelCentral.add(crearSeccionReporte("MIS ÚLTIMO 10 JUEGOS", obtenerTextoLogs()));
+
+        panelCentral.add(crearSeccionReporte("RANKING DE JUGADORES", obtenerTextoRanking()));
+
+        cf.add(panelCentral, BorderLayout.CENTER);
+
+        JButton btnVolver = estiloBotones("VOLVER");
+        btnVolver.addActionListener(e -> Volver());
+        JPanel panelSur = new JPanel();
+        panelSur.setOpaque(false);
+        panelSur.add(btnVolver);
+        panelSur.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
+        cf.add(panelSur, BorderLayout.SOUTH);
+
+        add(cf);
+    }
+
+    private JPanel crearSeccionReporte(String titulo, String contenido) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setOpaque(false);
+        
+        JLabel lblTitulo = new JLabel(titulo);
+        lblTitulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 22));
+        lblTitulo.setForeground(Color.WHITE);
+        panel.add(lblTitulo, BorderLayout.NORTH);
+
+        JTextArea areaTexto = new JTextArea(contenido);
+        areaTexto.setEditable(false);
+        areaTexto.setBackground(new Color(30, 30, 30));
+        areaTexto.setForeground(new Color(124, 252, 0)); 
+        areaTexto.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        
+        JScrollPane scroll = new JScrollPane(areaTexto);
+        scroll.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        panel.add(scroll, BorderLayout.CENTER);
+        
+        return panel;
+    }
+
+    private String obtenerTextoLogs() {
+        StringBuilder sb = new StringBuilder();
+        String[] logs = playerActual.getLogsPartidas(); 
+        
+        for (int i = 0; i < logs.length; i++) {
+            if (logs[i] != null) {
+                sb.append((i + 1) + "- " + logs[i] + "\n");
+            } else {
+                sb.append((i + 1) + "- \n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private String obtenerTextoRanking() {
+        StringBuilder sb = new StringBuilder();
+        // Obtenemos una copia para no desordenar la lista original si fuera necesario
+        Player[] ranking = sistema.getListaPlayers();
+        int n = sistema.getContadorPlayers();
+
+        // Algoritmo de Burbuja Simple para ordenar por puntos (Descendente) 
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {
+                    Player temp = ranking[j];
+                    ranking[j] = ranking[j + 1];
+                    ranking[j + 1] = temp;
+                }
+            }
+        }
+
+        sb.append(String.format("%-5s | %-15s | %-10s\n", "POS", "USUARIO", "PUNTOS"));
+        sb.append("------------------------------------------\n");
+        for (int i = 0; i < n; i++) {
+            sb.append(String.format("%-5d | %-15s | %-10d\n", 
+                (i + 1), ranking[i].getUsername(), ranking[i].getPuntos()));
+        }
+        return sb.toString();
+    }
+
+    private JButton estiloBotones(String texto) {
+        JButton btn = new JButton(texto);
+        btn.setBackground(Color.BLACK);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        btn.setPreferredSize(new Dimension(150, 50));
+        btn.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 3));
+        return btn;
+    }
+    
+    private void Volver(){
+        MenuPrincipal mp = new MenuPrincipal(playerActual, sistema);
+        mp.setVisible(true);
+        this.dispose();
+    }
     
 }

@@ -28,7 +28,6 @@ public class MenuPrincipal extends JFrame {
         ClaseFondo cf = new ClaseFondo("/img/MenuPrincipalFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
 
-        //JLabel titulo = new JLabel("¡Bienvenido Jugador!", SwingConstants.CENTER);
         JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
         titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 40));
         titulo.setForeground(new Color(255, 204, 51));
@@ -57,8 +56,8 @@ public class MenuPrincipal extends JFrame {
         this.add(cf);
 
         btnJugar.addActionListener(e -> iniciarJuego());
-        /*btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
-        btnReportes.addActionListener(e -> new Reportes(sistema, jugadorActual).setVisible(true));*/
+        //btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
+        btnReportes.addActionListener(e -> new Reportes(sistema, playerActual).setVisible(true));
         btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, playerActual).setVisible(true));
         btnSalir.addActionListener(e -> manejarSalir());
     }
@@ -92,7 +91,8 @@ public class MenuPrincipal extends JFrame {
     }
 
     private void manejarSalir() {
-        new MenuInicio(sistema).setVisible(true);
+        MenuInicio mi = new MenuInicio(sistema);
+        mi.setVisible(true);
         this.dispose();
     }
 }

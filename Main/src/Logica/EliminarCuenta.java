@@ -14,37 +14,35 @@ import javax.swing.border.TitledBorder;
  */
 public class EliminarCuenta extends JFrame{
     private Battleship sistema;
-    private Player jugadorActual;
+    private Player playerActual;
     private JPasswordField txtConfirmarPassword;
-    
-     private final Color COLOR_TEXTO = Color.WHITE;
-    private final Font FONT_LABEL = new Font("Bodoni Bd BT", Font.BOLD, 20);
 
-    public EliminarCuenta(Battleship sistema, Player jugadorActual) {
-        super("Battleship - Eliminar Cuenta - " + jugadorActual.getUsername());
+    public EliminarCuenta(Battleship sistema, Player playerActual) {
+        super("Battleship - Eliminar Cuenta - " + playerActual.getUsername());
         this.sistema = sistema;
-        this.jugadorActual = jugadorActual;
+        this.playerActual = playerActual;
 
         setSize(800, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        ClaseFondo cp = new ClaseFondo("/img/.png");
+        ClaseFondo cp = new ClaseFondo("/img/MiPerfilFondo.png");
         cp.setLayout(new BorderLayout());
         cp.setBorder(BorderFactory.createEmptyBorder(90, 90, 90, 90));
 
-        JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(2, 2, 20, 50));
         panel.setOpaque(false);
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.WHITE, 5), "ELIMINAR CUENTA (ACCIÓN PERMANENTE)",
-            TitledBorder.LEFT, TitledBorder.TOP, FONT_LABEL.deriveFont(Font.BOLD, 25), Color.WHITE));
+            BorderFactory.createLineBorder(Color.BLACK, 5), "ELIMINAR CUENTA",
+            TitledBorder.LEFT, TitledBorder.TOP, new Font("Bodoni Bd BT", Font.BOLD, 30),  new Color(255, 204, 51)));
 
         txtConfirmarPassword = new JPasswordField(5);
         JButton btnEliminar = new JButton("ELIMINAR CUENTA");
-        btnEliminar.setBackground(Color.RED.darker());
-        btnEliminar.setForeground(COLOR_TEXTO);
-        btnEliminar.setFont(FONT_LABEL.deriveFont(Font.BOLD));
+        btnEliminar.setBackground(Color.BLACK);
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        btnEliminar.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
 
         panel.add(crearLabel("CONFIRMAR CONTRASEÑA:"));
         panel.add(txtConfirmarPassword);
@@ -54,10 +52,10 @@ public class EliminarCuenta extends JFrame{
         //btnEliminar.addActionListener(e -> manejarEliminarCuenta());
         
         JButton btnVolver = new JButton("VOLVER");
-        btnVolver.setFont(FONT_LABEL);
-        btnVolver.setForeground(COLOR_TEXTO);
-        btnVolver.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-        btnVolver.setBackground(new Color(153, 0, 0));
+        btnVolver.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBorder(BorderFactory.createLineBorder(new Color(255, 204, 51), 5));
+        btnVolver.setBackground(Color.BLACK);
         btnVolver.setPreferredSize(new Dimension(250, 50));
         btnVolver.addActionListener(e -> vtnVolver());
         
@@ -70,15 +68,10 @@ public class EliminarCuenta extends JFrame{
         this.setContentPane(cp);
     }
     
-    private void vtnVolver(){
-        new MiPerfil(sistema, jugadorActual).setVisible(true);
-        this.dispose(); 
-    }
-    
     private JLabel crearLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(FONT_LABEL);
-        label.setForeground(COLOR_TEXTO);
+        label.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
+        label.setForeground(Color.WHITE);
         return label;
     }
 
@@ -90,7 +83,7 @@ public class EliminarCuenta extends JFrame{
                 "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
         if (confirmar == JOptionPane.YES_OPTION) {
-            boolean exito = sistema.eliminarCuenta(jugadorActual.getUsername(), confirmarPassword);
+            boolean exito = sistema.eliminarCuenta(playerActual.getUsername(), confirmarPassword);
 
             if (exito) {
                 this.dispose();
@@ -99,5 +92,11 @@ public class EliminarCuenta extends JFrame{
             }
         }
     }*/
+    
+    private void vtnVolver(){
+        MiPerfil mp = new MiPerfil(sistema, playerActual);
+        mp.setVisible(true);
+        this.dispose();
+    }
     
 }

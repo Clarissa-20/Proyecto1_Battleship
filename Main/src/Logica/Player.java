@@ -63,7 +63,7 @@ public class Player {
         }
     }
     
-    public String[] getLogsPstidas(){
+    public String[] getLogsPartidas(){
         return logsPartidas;
     }
     
