@@ -16,6 +16,7 @@ public class MenuInicio extends JFrame {
 
     public MenuInicio(Battleship sistema){
         this.sistema = sistema;
+        
         setTitle("Battleship - Menú Inicio");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

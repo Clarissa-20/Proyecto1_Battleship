@@ -15,6 +15,7 @@ public class LogIn extends JFrame{
     
     public LogIn(Battleship sistema){
         this.sistema = sistema;
+        
         setTitle("BattleShip - LogIn");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,6 +86,7 @@ public class LogIn extends JFrame{
         Player playerLogeado = sistema.logIn(user, contra);
         
         if (playerLogeado != null) {
+            sistema.setPlayerActual(playerLogeado);
             JOptionPane.showMessageDialog(this, "¡Bienvenido, " + user + "!", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
             MenuPrincipal menuPrincipal = new MenuPrincipal(playerLogeado, sistema);
             menuPrincipal.setVisible(true);

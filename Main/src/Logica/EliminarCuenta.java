@@ -13,15 +13,15 @@ import javax.swing.border.TitledBorder;
  * @author HP
  */
 public class EliminarCuenta extends JFrame{
-    private Battleship sistema;
     private Player playerActual;
+    private Battleship sistema;
     private JPasswordField txtConfirmarPassword;
 
-    public EliminarCuenta(Battleship sistema, Player playerActual) {
-        super("Battleship - Eliminar Cuenta - " + playerActual.getUsername());
-        this.sistema = sistema;
+    public EliminarCuenta(Player playerActual, Battleship sistema) {
         this.playerActual = playerActual;
+        this.sistema = sistema;
 
+        setTitle("Battleship - Eliminar Cuenta - " + playerActual.getUsername());
         setSize(800, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -94,7 +94,7 @@ public class EliminarCuenta extends JFrame{
     }*/
     
     private void vtnVolver(){
-        MiPerfil mp = new MiPerfil(sistema, playerActual);
+        MiPerfil mp = new MiPerfil(playerActual, sistema);
         mp.setVisible(true);
         this.dispose();
     }

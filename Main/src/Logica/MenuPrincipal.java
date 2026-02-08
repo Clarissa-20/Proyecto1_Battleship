@@ -19,6 +19,7 @@ public class MenuPrincipal extends JFrame {
     public MenuPrincipal(Player playerActual, Battleship sistema){
         this.playerActual = playerActual;
         this.sistema = sistema;
+        
         setTitle("Battleship - Menu Principal");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +44,6 @@ public class MenuPrincipal extends JFrame {
         JButton btnMiPerfil = estiloBotones("MI PERFIL");
         JButton btnReportes = estiloBotones("REPORTES");
         JButton btnSalir = estiloBotones("SALIR");
-        //ver si seria buena idea poner un btn de volver por cualquier cosa :)
 
         panelBotones.add(btnJugar);
         panelBotones.add(btnConfiguracion);
@@ -56,9 +56,9 @@ public class MenuPrincipal extends JFrame {
         this.add(cf);
 
         btnJugar.addActionListener(e -> iniciarJuego());
-        //btnConfiguracion.addActionListener(e -> mostrarConfiguracion());
-        btnReportes.addActionListener(e -> new Reportes(sistema, playerActual).setVisible(true));
-        btnMiPerfil.addActionListener(e -> new MiPerfil(sistema, playerActual).setVisible(true));
+        btnConfiguracion.addActionListener(e -> new Configuracion(sistema).setVisible(true));
+        btnReportes.addActionListener(e -> new Reportes(playerActual, sistema).setVisible(true));
+        btnMiPerfil.addActionListener(e -> new MiPerfil(playerActual, sistema).setVisible(true));
         btnSalir.addActionListener(e -> manejarSalir());
     }
 
@@ -76,19 +76,16 @@ public class MenuPrincipal extends JFrame {
     }
 
     private void iniciarJuego() {
-        /*ArrayList<Player> jugadoresRegistrados = sistema.obtenerJugadores(); 
-        
-        if (jugadoresRegistrados != null && jugadoresRegistrados.size() >= 2) {
-            this.dispose();
-            selecRival sr = new selecRival(this, sistema, jugadorActual);
-            sr.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Se necesita dos jugadores para iniciar partida", 
-                "Error de Inicio", 
-                JOptionPane.ERROR_MESSAGE);
-        }*/
+    if (sistema.getContadorPlayers() >= 2) {
+        this.dispose();
+        new SelecRival(playerActual, sistema).setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Se necesitan al menos dos jugadores registrados para jugar.", 
+            "Faltan Oponentes", 
+            JOptionPane.WARNING_MESSAGE);
     }
+}
 
     private void manejarSalir() {
         MenuInicio mi = new MenuInicio(sistema);

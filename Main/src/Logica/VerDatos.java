@@ -17,10 +17,9 @@ public class VerDatos extends JFrame{
     private Battleship sistema;
 
     public VerDatos(Player playerActual) {
-        super("Battleship - Información de la Cuenta - " + playerActual.getUsername());
-
         this.playerActual = playerActual;
         
+        setTitle("Battleship - Información de la Cuenta - " + playerActual.getUsername());
         setSize(800, 550);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -113,7 +112,7 @@ public class VerDatos extends JFrame{
     }
     
     private void vtnVolver(){
-        MiPerfil mp = new MiPerfil(sistema, playerActual);
+        MiPerfil mp = new MiPerfil(playerActual, sistema);
         mp.setVisible(true);
         this.dispose();
     }

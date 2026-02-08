@@ -15,9 +15,9 @@ public class MiPerfil extends JFrame{
     private Player playerActual;
     private Battleship sistema;
     
-    public MiPerfil(Battleship sistema, Player playerActual){
-        this.sistema = sistema;
+    public MiPerfil(Player playerActual, Battleship sistema){
         this.playerActual = playerActual;
+        this.sistema = sistema;
         
         setTitle("Battleship - Mi Cuenta");
         setSize(800, 550);
@@ -94,13 +94,13 @@ public class MiPerfil extends JFrame{
     }
     
     private void ModificarMisDatos(){
-        ModificarDatos contra = new ModificarDatos(sistema, playerActual);
+        ModificarDatos contra = new ModificarDatos(playerActual, sistema);
         contra.setVisible(true);
         this.dispose();
     }
     
     private void EliminarCuenta(){
-        EliminarCuenta cerrar = new EliminarCuenta(sistema, playerActual);
+        EliminarCuenta cerrar = new EliminarCuenta(playerActual, sistema);
         cerrar.setVisible(true);
         this.dispose();
     }

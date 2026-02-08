@@ -12,12 +12,12 @@ import javax.swing.*;
  * @author HP
  */
 public class Reportes extends JFrame{
-    private Battleship sistema;
     private Player playerActual;
+    private Battleship sistema;
 
-    public Reportes(Battleship sistema, Player jugador) {
+    public Reportes(Player playerActual, Battleship sistema) {
+        this.playerActual = playerActual;
         this.sistema = sistema;
-        this.playerActual = jugador;
         
         setTitle("Battleship - Reportes");
         setSize(900, 800);
@@ -92,11 +92,9 @@ public class Reportes extends JFrame{
 
     private String obtenerTextoRanking() {
         StringBuilder sb = new StringBuilder();
-        // Obtenemos una copia para no desordenar la lista original si fuera necesario
         Player[] ranking = sistema.getListaPlayers();
         int n = sistema.getContadorPlayers();
 
-        // Algoritmo de Burbuja Simple para ordenar por puntos (Descendente) 
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {

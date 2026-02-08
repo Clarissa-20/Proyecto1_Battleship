@@ -12,14 +12,15 @@ import javax.swing.border.TitledBorder;
  * @author HP
  */
 public class ModificarDatos extends JFrame{
-    private Battleship sistema;
     private Player playerActual;
+    private Battleship sistema;
     private JPasswordField txtviejaPass, txtnuevaPass;
     private JTextField txtviejoUser, txtnuevoUser;
     
-    public ModificarDatos(Battleship sistema, Player playerActual){
-        this.sistema = sistema;
+    public ModificarDatos(Player playerActual, Battleship sistema){
         this.playerActual = playerActual;
+        this.sistema = sistema;
+        
         setTitle("Battleship - Modificar Datos");
         setSize(800, 550);
         setLocationRelativeTo(null);
@@ -122,7 +123,7 @@ public class ModificarDatos extends JFrame{
     }*/
     
     private void vtnVolver(){
-        MiPerfil mp = new MiPerfil(sistema, playerActual);
+        MiPerfil mp = new MiPerfil(playerActual, sistema);
         mp.setVisible(true);
         this.dispose();
     }

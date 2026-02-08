@@ -16,6 +16,7 @@ public class CrearPlayer extends JFrame{
     
     public CrearPlayer(Battleship sistema){
         this.sistema = sistema;
+        
         setTitle("Battleship - Crear Player");
         setSize(800, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
