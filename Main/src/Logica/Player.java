@@ -59,7 +59,7 @@ public class Player {
             logsPartidas[i] = logsPartidas[i-1];
         }
         logsPartidas[0] = mensaje;
-        if(contadorLogs>10){
+        if(contadorLogs<10){
             contadorLogs++;
         }
     }
