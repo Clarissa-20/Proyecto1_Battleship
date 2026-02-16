@@ -80,7 +80,7 @@ public class EliminarCuenta extends JFrame {
         String confirmarPassword = new String(txtConfirmarPassword.getPassword());
 
         if (confirmarPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese su contraseña.");
+            DecoMensajes.mostrarMensaje(this, "Por favor, ingrese su contraseña.", "BATTLESHIP");
             return;
         }
 
@@ -92,12 +92,12 @@ public class EliminarCuenta extends JFrame {
             boolean exito = sistema.eliminarCuenta(playerActual.getUsername(), confirmarPassword);
 
             if (exito) {
-                JOptionPane.showMessageDialog(this, "Cuenta eliminada con éxito.");
+                DecoMensajes.mostrarMensaje(this, "Cuenta eliminada con éxito.", "BATTLESHIP");
                 MenuInicio mi = new MenuInicio(sistema);
                 mi.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Contraseña incorrecta. No se pudo eliminar la cuenta.");
+                DecoMensajes.mostrarMensaje(this, "Contraseña incorrecta. No se pudo eliminar la cuenta.", "BATTLESHIP");
                 txtConfirmarPassword.setText("");
             }
         }

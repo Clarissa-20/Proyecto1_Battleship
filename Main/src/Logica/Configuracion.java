@@ -70,7 +70,7 @@ public class Configuracion extends JFrame{
 
     comboDificultad.addActionListener(e -> {
         sistema.setDificultad((String) comboDificultad.getSelectedItem());
-        JOptionPane.showMessageDialog(this, "Dificultad cambiada a: " + sistema.getDificultad());
+        DecoMensajes.mostrarMensaje(this, "Dificultad cambiada a: " + sistema.getDificultad(), "BATTLESHIP");
     });
 
     panel.add(comboDificultad);
@@ -96,7 +96,7 @@ private JPanel crearPanelModo() {
 
     comboModo.addActionListener(e -> {
         sistema.setModoJuego((String) comboModo.getSelectedItem());
-        JOptionPane.showMessageDialog(this, "Modo de juego cambiado a: " + sistema.getModoJuego());
+        DecoMensajes.mostrarMensaje(this, "Modo de juego cambiado a: " + sistema.getModoJuego(), "BATTLESHIP");
     });
 
     panel.add(comboModo);

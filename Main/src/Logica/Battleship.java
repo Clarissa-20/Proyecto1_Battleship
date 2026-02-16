@@ -337,10 +337,10 @@ public class Battleship {
                 p.setUsername(nuevoUser);
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "El nuevo username ya esta en uso.");
+                DecoMensajes.mostrarMensaje(null, "El nuevo username ya esta en uso.", "BATTLESHIP");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Contraseña incorrecta. No se puede cambiar el nombre.");
+            DecoMensajes.mostrarMensaje(null, "Contraseña incorrecta. No se puede cambiar el nombre.", "BATTLESHIP");
         }
         return false;
     }
@@ -351,7 +351,7 @@ public class Battleship {
             p.setPassword(passNueva);
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "La contraseña actual no es correcta.");
+            DecoMensajes.mostrarMensaje(null, "La contraseña actual no es correcta.", "BATTLESHIP");
         }
         return false;
     }

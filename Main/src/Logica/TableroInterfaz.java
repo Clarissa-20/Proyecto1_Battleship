@@ -17,13 +17,14 @@ public class TableroInterfaz extends JPanel {
 
     private int numTablero;
     private Battleship sistema;
+    private int hoverFila = -1;
+    private int hoverColumna = -1;
 
     public TableroInterfaz(int numTablero, Battleship sistema) {
         this.numTablero = numTablero;
         this.sistema = sistema;
 
         this.setPreferredSize(new Dimension(420, 420));
-
         this.setBorder(BorderFactory.createLineBorder(new Color(101, 67, 33), 6));
 
         this.addMouseListener(new MouseAdapter() {
@@ -37,18 +38,37 @@ public class TableroInterfaz extends JPanel {
                     comunicarClicAJuego(fila, col);
                 }
             }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hoverFila = -1;
+                hoverColumna = -1;
+                repaint();
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int cellSize = getWidth() / Battleship.SIZE;
+                int fila = e.getY() / cellSize;
+                int col = e.getX() / cellSize;
+
+                if (fila != hoverFila || col != hoverColumna) {
+                    hoverFila = fila;
+                    hoverColumna = col;
+                    repaint();
+                }
+            }
         });
     }
 
     private void comunicarClicAJuego(int f, int c) {
-
         Container parent = getParent();
         while (parent != null && !(parent instanceof Juego)) {
             parent = parent.getParent();
         }
-
         if (parent instanceof Juego ventanaJuego) {
-
             ventanaJuego.gestionarClicTablero(f, c, numTablero);
         }
     }
@@ -74,15 +94,19 @@ public class TableroInterfaz extends JPanel {
 
         for (int i = 0; i < Battleship.SIZE; i++) {
             for (int j = 0; j < Battleship.SIZE; j++) {
-                Color fondoBase = (numTablero == 1) ? new Color(20, 50, 90) : new Color(90, 20, 20);
-                g2.setColor(fondoBase);
+                
+                if (i == hoverFila && j == hoverColumna) {
+                    g2.setColor(new Color(255, 204, 51, 100));
+                } else {
+                    g2.setColor((numTablero == 1) ? new Color(20, 50, 90) : new Color(90, 20, 20));
+                }
+                
                 g2.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
 
                 g2.setColor(new Color(255, 255, 255, 30));
                 g2.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
 
                 String contenido = matriz[i][j];
-
                 Juego vJuego = (parent instanceof Juego) ? (Juego) parent : null;
                 boolean faseColocacion = (vJuego != null) ? vJuego.isFaseColocacion() : false;
                 int jugadorColocando = (vJuego != null) ? vJuego.getJugadorColocando() : 0;
@@ -91,7 +115,6 @@ public class TableroInterfaz extends JPanel {
                     dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
                 } else {
                     boolean esMiTablero = sistema.getPlayerActual().getUsername().equals(nombreDuenio);
-
                     boolean mostrarPorColocacion = faseColocacion && (numTablero == jugadorColocando);
 
                     if (esMiTablero || mostrarPorColocacion || contenido.equals("X") || contenido.equals("F")) {
@@ -103,22 +126,13 @@ public class TableroInterfaz extends JPanel {
     }
 
     private void dibujarSimbolo(Graphics2D g2, String texto, int x, int y, int size) {
-        if (texto.equals("~")) {
-            return;
-        }
+        if (texto.equals("~")) return;
 
         g2.setFont(new Font("Arial Black", Font.BOLD, 18));
-
         switch (texto) {
-            case "X":
-                g2.setColor(Color.RED);
-                break;
-            case "F":
-                g2.setColor(Color.WHITE);
-                break;
-            default:
-                g2.setColor(Color.YELLOW);
-                break;
+            case "X": g2.setColor(Color.RED); break;
+            case "F": g2.setColor(Color.WHITE); break;
+            default: g2.setColor(Color.YELLOW); break;
         }
 
         FontMetrics fm = g2.getFontMetrics();

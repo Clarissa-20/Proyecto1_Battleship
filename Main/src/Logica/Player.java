@@ -15,8 +15,8 @@ public class Player {
     private String username;
     private String password;
     private int puntos;
-    private String[] logsPartidas; //este es para el arreglo de las 10 ultimas partidsa
-    private int contadorLogs; //saber cuantos lleva
+    private String[] logsPartidas; 
+    private int contadorLogs; 
     private boolean activo;
     private LocalDate fechaIngreso;
 

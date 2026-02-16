@@ -87,12 +87,12 @@ public class LogIn extends JFrame{
         
         if (playerLogeado != null) {
             sistema.setPlayerActual(playerLogeado);
-            JOptionPane.showMessageDialog(this, "¡Bienvenido, " + user + "!", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            DecoMensajes.mostrarMensaje(this, "¡Bienvenido, " + user + "!", "BATTLESHIP");
             MenuPrincipal menuPrincipal = new MenuPrincipal(playerLogeado, sistema);
             menuPrincipal.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos o no existe.", "Error de Login", JOptionPane.ERROR_MESSAGE);
+            DecoMensajes.mostrarMensaje(this, "Usuario o contraseña incorrectos o no existe.", "BATTLESHIP");
         }
     }
     

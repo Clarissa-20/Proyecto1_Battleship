@@ -101,12 +101,12 @@ public class ModificarDatos extends JFrame{
         String confirmacion = new String(txtConfirmarPass.getPassword());
 
         if(nuevo.isEmpty() || confirmacion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete los campos para el cambio de nombre.");
+            DecoMensajes.mostrarMensaje(this, "Complete los campos para el cambio de nombre.", "BATTLESHIP");
             return;
         }
 
         if (sistema.cambiarUser(playerActual.getUsername(), confirmacion, nuevo)) {
-            JOptionPane.showMessageDialog(this, "¡Username actualizado con éxito!");
+            DecoMensajes.mostrarMensaje(this, "¡Username actualizado con éxito!", "BATTLESHIP");
             vtnVolver(); 
         } 
     }
@@ -116,12 +116,12 @@ public class ModificarDatos extends JFrame{
         String nueva = new String(txtnuevaPass.getPassword());
 
         if(vieja.isEmpty() || nueva.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar la contraseña actual y la nueva.");
+            DecoMensajes.mostrarMensaje(this, "Debe ingresar la contraseña actual y la nueva.", "BATTLESHIP");
             return;
         }
 
         if (sistema.cambiarPassword(playerActual.getUsername(), vieja, nueva)) {
-            JOptionPane.showMessageDialog(this, "¡Contraseña actualizada!");
+            DecoMensajes.mostrarMensaje(this, "¡Contraseña actualizada!", "BATTLESHIP");
             vtnVolver();
         } 
     }

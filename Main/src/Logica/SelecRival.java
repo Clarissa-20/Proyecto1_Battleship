@@ -106,12 +106,12 @@ public class SelecRival extends JFrame {
         }
 
         if (oponente.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre o EXIT.");
+            DecoMensajes.mostrarMensaje(this, "Debe ingresar un nombre o EXIT.", "BATTLESHIP");
             return;
         }
 
         if (oponente.equals(jugadorPrincipal.getUsername())) {
-            JOptionPane.showMessageDialog(this, "¡No puedes ser tu propio rival!");
+            DecoMensajes.mostrarMensaje(this, "¡No puedes ser tu propio rival!", "BATTLESHIP");
             return;
         }
 
@@ -125,7 +125,7 @@ public class SelecRival extends JFrame {
             jg.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Jugador no encontrado. Vuelvea intentarlo.");
+            DecoMensajes.mostrarMensaje(this, "Jugador no encontrado. Vuelvea intentarlo.", "BATTLESHIP");
         }
     }
 

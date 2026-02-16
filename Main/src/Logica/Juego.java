@@ -59,8 +59,8 @@ public class Juego extends JFrame {
         filaInfo.add(lblModo);
         filaInfo.add(lblDificultad);
 
-        infoPartida = new JLabel("JUGADOR 1: COLOQUE SUS BARCOS (IZQUIERDA)", SwingConstants.CENTER);
-        infoPartida.setFont(new Font("Arial Black", Font.BOLD, 18));
+        infoPartida = new JLabel(sistema.getPlayerActual().getUsername().toUpperCase() +":COLOQUE SUS BARCOS (IZQUIERDA)", SwingConstants.CENTER);
+        infoPartida.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
         infoPartida.setForeground(Color.YELLOW);
         norte.add(filaInfo);
         norte.add(infoPartida);
@@ -72,7 +72,7 @@ public class Juego extends JFrame {
         bloqueP1.setOpaque(false);
         lblNombreP1 = new JLabel(sistema.getPlayerActual().getUsername(), SwingConstants.CENTER);
         lblNombreP1.setForeground(Color.WHITE);
-        lblNombreP1.setFont(new Font("Arial", Font.BOLD, 20));
+        lblNombreP1.setFont(new Font("Bodoni Bd BT", Font.BOLD, 30));
         panelP1 = new TableroInterfaz(1, sistema);
         bloqueP1.add(lblNombreP1, BorderLayout.NORTH);
         bloqueP1.add(panelP1, BorderLayout.CENTER);
@@ -81,56 +81,75 @@ public class Juego extends JFrame {
         bloqueP2.setOpaque(false);
         lblNombreP2 = new JLabel(sistema.getRival().getUsername(), SwingConstants.CENTER);
         lblNombreP2.setForeground(Color.WHITE);
-        lblNombreP2.setFont(new Font("Arial", Font.BOLD, 20));
+        lblNombreP2.setFont(new Font("Bodoni Bd BT", Font.BOLD, 30));
         panelP2 = new TableroInterfaz(2, sistema);
         bloqueP2.add(lblNombreP2, BorderLayout.NORTH);
         bloqueP2.add(panelP2, BorderLayout.CENTER);
 
         centroContenedor.add(bloqueP1);
         centroContenedor.add(bloqueP2);
-
+        
         JPanel sur = new JPanel(new BorderLayout());
         sur.setOpaque(false);
         sur.setPreferredSize(new Dimension(0, 200));
 
-        statusP1 = crearPanelStatus("BARCOS P1", new Color(10, 30, 50));
-        statusP2 = crearPanelStatus("BARCOS P2", new Color(50, 10, 10));
+        statusP1 = crearPanelStatus("BARCOS: "+ sistema.getPlayerActual().getUsername().toUpperCase(), new Color(10, 30, 50));
+        statusP2 = crearPanelStatus("BARCOS: "+sistema.getRival().getUsername().toUpperCase(), new Color(50, 10, 10));
 
         JPanel controles = new JPanel();
         controles.setLayout(new BoxLayout(controles, BoxLayout.Y_AXIS));
         controles.setOpaque(false);
-        controles.setPreferredSize(new Dimension(250, 0));
 
         comboCod = new JComboBox<>(new String[]{"PA", "AZ", "SM", "DT"});
         comboOri = new JComboBox<>(new String[]{"Horizontal", "Vertical"});
-        btnConfirmarFlota = new JButton("CONFIRMAR FLOTA");
-        JButton btnRetirar = new JButton("RETIRAR");
+
+        Dimension comboSize = new Dimension(180, 30);
+        comboCod.setMaximumSize(comboSize);
+        comboOri.setMaximumSize(comboSize);
+
+        comboCod.setAlignmentX(Component.CENTER_ALIGNMENT);
+        comboOri.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btnConfirmarFlota = estiloBotones("CONFIRMAR FLOTA");
+        JButton btnRetirar = estiloBotones("RETIRAR");
+
+        btnConfirmarFlota.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnRetirar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblBarco = new JLabel("SELECCIONAR BARCO:");
+        lblBarco.setForeground(Color.WHITE);
+        lblBarco.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblOri = new JLabel("ORIENTACIÓN:");
+        lblOri.setForeground(Color.WHITE);
+        lblOri.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        controles.add(Box.createVerticalGlue()); 
+        controles.add(lblBarco);
+        controles.add(Box.createVerticalStrut(5));
+        controles.add(comboCod);
+        controles.add(Box.createVerticalStrut(10));
+        controles.add(lblOri);
+        controles.add(Box.createVerticalStrut(5));
+        controles.add(comboOri);
+        controles.add(Box.createVerticalStrut(15));
+        controles.add(btnConfirmarFlota);
+        controles.add(Box.createVerticalStrut(10));
+        controles.add(btnRetirar);
+        controles.add(Box.createVerticalGlue());
 
         btnRetirar.addActionListener(e -> {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "¿Deseas retirarte? Esto contará como derrota.",
                     "Confirmar Retirada", JOptionPane.YES_NO_OPTION);
-
             if (respuesta == JOptionPane.YES_OPTION) {
                 Player perdedor = sistema.getPlayerActual();
                 Player p1 = sistema.buscarPlayer(lblNombreP1.getText());
                 Player p2 = sistema.getRival();
-
                 Player ganador = (perdedor.getUsername().equals(p1.getUsername())) ? p2 : p1;
-
                 finalizarPartida(ganador, perdedor, true);
             }
         });
-
-        controles.add(new JLabel("SELECCIONAR BARCO:"));
-        controles.add(comboCod);
-        controles.add(new JLabel("ORIENTACIÓN:"));
-        controles.add(comboOri);
-        controles.add(Box.createVerticalStrut(10));
-        controles.add(btnConfirmarFlota);
-        controles.add(Box.createVerticalStrut(10));
-        controles.add(btnRetirar);
-
         btnConfirmarFlota.addActionListener(e -> manejarConfirmacionFlota());
 
         sur.add(statusP1, BorderLayout.WEST);
@@ -227,7 +246,7 @@ public class Juego extends JFrame {
 
                 dueñoSesion.agregarLog(mensajeLog);
 
-                JOptionPane.showMessageDialog(this, "¡VICTORIA PARA " + ganador.getUsername() + "!\n+3 Puntos para el ranking.");
+                DecoMensajes.mostrarMensaje(this, "¡VICTORIA PARA " + ganador.getUsername().toUpperCase() + "!\nHaz ganado 3 puntos.", "BATTLESHIP");
 
                 new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
                 this.dispose();
@@ -241,11 +260,11 @@ public class Juego extends JFrame {
         ganador.agregarPuntos(3);
 
         String causa = fueRetirada ? " por retirada" : " hundiendo la flota";
-        String mensajeLog = ganador.getUsername() + " venció a " + perdedor.getUsername() + causa + " (Modo: " + sistema.getModoJuego() + ")";
+        String mensajeLog = ganador.getUsername() + " venció a " + perdedor.getUsername() + causa + " Modo: " + sistema.getModoJuego();
 
         dueñoSesion.agregarLog(mensajeLog);
 
-        JOptionPane.showMessageDialog(this, "¡FIN DE LA PARTIDA!\nGanador: " + ganador.getUsername() + "\nLog: " + mensajeLog);
+        DecoMensajes.mostrarMensaje(this, "¡FIN DE LA PARTIDA!\nGanador: " + ganador.getUsername() + " - Has ganado 3 puntos\n"+ mensajeLog, "BATTLESHIP");
 
         new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
         this.dispose();
@@ -316,7 +335,7 @@ public class Juego extends JFrame {
     }
 
     public void refrescarPantalla() {
-        lblTurno.setText("TURNO DE: " + sistema.getPlayerActual().getUsername());
+        lblTurno.setText("TURNO DE: " + sistema.getPlayerActual().getUsername().toUpperCase());
         actualizarStatusVidas();
         panelP1.repaint();
         panelP2.repaint();
@@ -329,7 +348,7 @@ public class Juego extends JFrame {
     private JLabel crearLabelInfo(String t) {
         JLabel l = new JLabel(t, SwingConstants.CENTER);
         l.setForeground(Color.WHITE);
-        l.setFont(new Font("Arial", Font.BOLD, 14));
+        l.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
         return l;
     }
 
@@ -340,6 +359,21 @@ public class Juego extends JFrame {
         p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), titulo, 0, 0, null, Color.WHITE));
         return p;
     }
+    
+    private JButton estiloBotones(String texto) {
+    JButton btn = new JButton(texto);
+    Color colorDorado = new Color(255, 204, 51);
+    btn.setFont(new Font("Bodoni Bd BT", Font.BOLD, 16));
+    btn.setForeground(Color.WHITE);
+    btn.setBackground(Color.BLACK);
+    btn.setFocusPainted(false);
+    btn.setPreferredSize(new Dimension(220, 45));
+    btn.setMaximumSize(new Dimension(220, 45)); 
+    btn.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(colorDorado, 3),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+    return btn;
+}
 
     public JLabel getLblNombreP1() {
         return lblNombreP1;
