@@ -58,9 +58,6 @@ public class MenuPrincipal extends JFrame {
         this.add(cf);
 
         btnJugar.addActionListener(e -> iniciarJuego());
-        /*btnConfiguracion.addActionListener(e -> new Configuracion(sistema).setVisible(true));
-        btnReportes.addActionListener(e -> new Reportes(playerActual, sistema).setVisible(true));
-        btnMiPerfil.addActionListener(e -> new MiPerfil(playerActual, sistema).setVisible(true));*/
         btnConfiguracion.addActionListener(e -> mostrarConfig());
         btnReportes.addActionListener(e -> mostrarReportes());
         btnMiPerfil.addActionListener(e -> mostrarPerfil());

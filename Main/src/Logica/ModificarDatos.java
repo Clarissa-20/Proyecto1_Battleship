@@ -96,32 +96,6 @@ public class ModificarDatos extends JFrame{
         return label;
     }
     
-    /*private void manejarCambioUser() {
-        String viejoUser = new String(txtviejoUser.getName());
-        String nuevoUser = new String(txtnuevoUser.getName());
-
-        boolean exito = sistema.cambiarUser(playerActual.getUsername(), viejoUser, nuevoUser);
-
-        if (exito) {
-            txtviejoUser.setText("");
-            txtnuevoUser.setText("");
-            this.dispose();
-        } 
-    }
-    
-    private void manejarCambioPass() {
-        String viejaPassword = new String(txtviejaPass.getPassword());
-        String nuevaPassword = new String(txtnuevaPass.getPassword());
-
-        boolean exito = sistema.cambiarPassword(playerActual.getUsername(), viejaPassword, nuevaPassword);
-
-        if (exito) {
-            txtviejaPass.setText("");
-            txtnuevaPass.setText("");
-            this.dispose();
-        } 
-    }*/
-    
     private void manejarCambioUser() {
         String nuevo = txtnuevoUser.getText();
         String confirmacion = new String(txtConfirmarPass.getPassword());

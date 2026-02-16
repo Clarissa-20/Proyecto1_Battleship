@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
  */
 public class EliminarCuenta extends JFrame {
 
-    private Player playerActual;
+    private Player playerActual; 
     private Battleship sistema;
     private JPasswordField txtConfirmarPassword;
 
@@ -75,24 +75,7 @@ public class EliminarCuenta extends JFrame {
         label.setForeground(Color.WHITE);
         return label;
     }
-
-    /*private void manejarEliminarCuenta() {
-        String confirmarPassword = new String(txtConfirmarPassword.getPassword());
-
-        int confirmar = JOptionPane.showConfirmDialog(this,
-                "¿Está seguro que desea eliminar su cuenta?",
-                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-        if (confirmar == JOptionPane.YES_OPTION) {
-            boolean exito = sistema.eliminarCuenta(playerActual.getUsername(), confirmarPassword);
-
-            if (exito) {
-                this.dispose();
-            } else {
-                txtConfirmarPassword.setText("");
-            }
-        }
-    }*/
+    
     private void manejarEliminarCuenta() {
         String confirmarPassword = new String(txtConfirmarPassword.getPassword());
 

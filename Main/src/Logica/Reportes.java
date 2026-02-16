@@ -81,19 +81,6 @@ public class Reportes extends JFrame {
         return panel;
     }
 
-    /*private String obtenerTextoLogs() {
-        StringBuilder sb = new StringBuilder();
-        String[] logs = playerActual.getLogsPartidas();
-
-        for (int i = 0; i < logs.length; i++) {
-            if (logs[i] != null) {
-                sb.append((i + 1) + "- " + logs[i] + "\n");
-            } else {
-                sb.append((i + 1) + "- \n");
-            }
-        }
-        return sb.toString();
-    }*/
     private String obtenerTextoLogs() {
         StringBuilder sb = new StringBuilder();
         String[] logs = playerActual.getLogsPartidas();
@@ -111,58 +98,7 @@ public class Reportes extends JFrame {
         }
         return sb.toString();
     }
-
-    /*private String obtenerTextoRanking() {
-        StringBuilder sb = new StringBuilder();
-        Player[] ranking = sistema.getListaPlayers();
-        int n = sistema.getContadorPlayers();
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {
-                    Player temp = ranking[j];
-                    ranking[j] = ranking[j + 1];
-                    ranking[j + 1] = temp;
-                }
-            }
-        }
-
-        sb.append(String.format("%-5s | %-15s | %-10s\n", "POS", "USUARIO", "PUNTOS"));
-        sb.append("------------------------------------------\n");
-        for (int i = 0; i < n; i++) {
-            sb.append(String.format("%-5d | %-15s | %-10d\n", 
-                (i + 1), ranking[i].getUsername(), ranking[i].getPuntos()));
-        }
-        return sb.toString();
-    }*/
- /*private String obtenerTextoRanking() {
-        StringBuilder sb = new StringBuilder();
-        Player[] originales = sistema.getListaPlayers();
-        int n = sistema.getContadorPlayers();
-
-        Player[] ranking = new Player[n];
-        System.arraycopy(originales, 0, ranking, 0, n);
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (ranking[j].getPuntos() < ranking[j + 1].getPuntos()) {
-                    Player temp = ranking[j];
-                    ranking[j] = ranking[j + 1];
-                    ranking[j + 1] = temp;
-                }
-            }
-        }
-
-        sb.append(String.format("%-5s | %-15s | %-10s\n", "POS", "USUARIO", "PUNTOS"));
-        sb.append("------------------------------------------\n");
-        for (int i = 0; i < n; i++) {
-            if (ranking[i] != null) {
-                sb.append(String.format("%-5d | %-15s | %-10d\n",
-                        (i + 1), ranking[i].getUsername(), ranking[i].getPuntos()));
-            }
-        }
-        return sb.toString();
-    }*/
+ 
     private String obtenerTextoRanking() {
         if (this.sistema == null) {
             return "Cargando datos...";

@@ -105,17 +105,6 @@ public class Juego extends JFrame {
         comboOri = new JComboBox<>(new String[]{"Horizontal", "Vertical"});
         btnConfirmarFlota = new JButton("CONFIRMAR FLOTA");
         JButton btnRetirar = new JButton("RETIRAR");
-        /*btnRetirar.addActionListener(e -> {
-            int respuesta = JOptionPane.showConfirmDialog(this,
-                    "¿Estás seguro de que deseas retirarte de la batalla?",
-                    "Confirmar Retirada", JOptionPane.YES_NO_OPTION);
-
-            if (respuesta == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this, "DERROTA: Te has retirado.");
-                this.dispose();
-                new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
-            }
-        });*/
 
         btnRetirar.addActionListener(e -> {
             int respuesta = JOptionPane.showConfirmDialog(this,

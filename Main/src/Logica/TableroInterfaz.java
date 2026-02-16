@@ -81,16 +81,6 @@ public class TableroInterfaz extends JPanel {
                 g2.setColor(new Color(255, 255, 255, 30));
                 g2.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
 
-                /*String contenido = matriz[i][j];
-
-                if (sistema.getModoJuego().equalsIgnoreCase("TUTORIAL")) {
-                    dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
-                } else {
-                    boolean esMiTablero = sistema.getPlayerActual().getUsername().equals(nombreDuenio);
-                    if (esMiTablero || contenido.equals("X") || contenido.equals("F")) {
-                        dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
-                    }
-                }*/
                 String contenido = matriz[i][j];
 
                 Juego vJuego = (parent instanceof Juego) ? (Juego) parent : null;
