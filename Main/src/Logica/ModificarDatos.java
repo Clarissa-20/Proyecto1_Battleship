@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 public class ModificarDatos extends JFrame{
     private Player playerActual;
     private Battleship sistema;
-    private JPasswordField txtviejaPass, txtnuevaPass;
+    private JPasswordField txtConfirmarPass, txtnuevaPass;
     private JTextField txtviejoUser, txtnuevoUser;
     
     public ModificarDatos(Player playerActual, Battleship sistema){
@@ -41,7 +41,7 @@ public class ModificarDatos extends JFrame{
         txtnuevoUser = new JTextField(5);
         JButton btnCambiarUser = new JButton("CAMBIAR USERNAME");
         
-        txtviejaPass = new JPasswordField(5);
+        txtConfirmarPass = new JPasswordField(5);
         txtnuevaPass = new JPasswordField(5);
         JButton btnCambiarPass = new JButton("CAMBIAR CONTRASEÑA");
         
@@ -63,14 +63,14 @@ public class ModificarDatos extends JFrame{
         panel.add(btnCambiarUser);
         
         panel.add(crearLabel("CONTRASEÑA ACTUAL:"));
-        panel.add(txtviejaPass);
+        panel.add(txtConfirmarPass);
         panel.add(crearLabel("NUEVA CONTRASEÑA:"));
         panel.add(txtnuevaPass);
         panel.add(new JLabel(""));
         panel.add(btnCambiarPass);
         
-        /*btnCambiarUser.addActionListener(e -> manejarCambioUser());
-        btnCambiarPass.addActionListener(e -> manejarCambioPass());*/
+        btnCambiarUser.addActionListener(e -> manejarCambioUser());
+        btnCambiarPass.addActionListener(e -> manejarCambioPass());
         
         JButton btnVolver = new JButton("VOLVER");
         btnVolver.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));
@@ -121,6 +121,36 @@ public class ModificarDatos extends JFrame{
             this.dispose();
         } 
     }*/
+    
+    private void manejarCambioUser() {
+        String nuevo = txtnuevoUser.getText();
+        String confirmacion = new String(txtConfirmarPass.getPassword());
+
+        if(nuevo.isEmpty() || confirmacion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete los campos para el cambio de nombre.");
+            return;
+        }
+
+        if (sistema.cambiarUser(playerActual.getUsername(), confirmacion, nuevo)) {
+            JOptionPane.showMessageDialog(this, "¡Username actualizado con éxito!");
+            vtnVolver(); 
+        } 
+    }
+    
+    private void manejarCambioPass(){
+        String vieja = new String(txtConfirmarPass.getPassword());
+        String nueva = new String(txtnuevaPass.getPassword());
+
+        if(vieja.isEmpty() || nueva.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar la contraseña actual y la nueva.");
+            return;
+        }
+
+        if (sistema.cambiarPassword(playerActual.getUsername(), vieja, nueva)) {
+            JOptionPane.showMessageDialog(this, "¡Contraseña actualizada!");
+            vtnVolver();
+        } 
+    }
     
     private void vtnVolver(){
         MiPerfil mp = new MiPerfil(playerActual, sistema);

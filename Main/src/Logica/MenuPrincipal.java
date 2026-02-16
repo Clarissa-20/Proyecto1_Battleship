@@ -13,12 +13,14 @@ import java.util.ArrayList;
  * @author HP
  */
 public class MenuPrincipal extends JFrame {
+
     private Player playerActual;
     private Battleship sistema;
 
-    public MenuPrincipal(Player playerActual, Battleship sistema){
+    public MenuPrincipal(Player playerActual, Battleship sistema) {
         this.playerActual = playerActual;
         this.sistema = sistema;
+        System.out.println("DEBUG MenuPrincipal: sistema guardado correctamente: " + this.sistema);
         
         setTitle("Battleship - Menu Principal");
         setSize(800, 550);
@@ -29,7 +31,7 @@ public class MenuPrincipal extends JFrame {
         ClaseFondo cf = new ClaseFondo("/img/MenuPrincipalFondo.png");
         cf.setLayout(new BorderLayout(20, 20));
 
-        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername()+"!", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("¡Bienvenido, " + playerActual.getUsername() + "!", SwingConstants.CENTER);
         titulo.setFont(new Font("Bodoni Bd BT", Font.BOLD, 40));
         titulo.setForeground(new Color(255, 204, 51));
         titulo.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
@@ -56,9 +58,12 @@ public class MenuPrincipal extends JFrame {
         this.add(cf);
 
         btnJugar.addActionListener(e -> iniciarJuego());
-        btnConfiguracion.addActionListener(e -> new Configuracion(sistema).setVisible(true));
+        /*btnConfiguracion.addActionListener(e -> new Configuracion(sistema).setVisible(true));
         btnReportes.addActionListener(e -> new Reportes(playerActual, sistema).setVisible(true));
-        btnMiPerfil.addActionListener(e -> new MiPerfil(playerActual, sistema).setVisible(true));
+        btnMiPerfil.addActionListener(e -> new MiPerfil(playerActual, sistema).setVisible(true));*/
+        btnConfiguracion.addActionListener(e -> mostrarConfig());
+        btnReportes.addActionListener(e -> mostrarReportes());
+        btnMiPerfil.addActionListener(e -> mostrarPerfil());
         btnSalir.addActionListener(e -> manejarSalir());
     }
 
@@ -76,16 +81,37 @@ public class MenuPrincipal extends JFrame {
     }
 
     private void iniciarJuego() {
-    if (sistema.getContadorPlayers() >= 2) {
-        this.dispose();
-        new SelecRival(playerActual, sistema).setVisible(true);
-    } else {
-        JOptionPane.showMessageDialog(this, 
-            "Se necesitan al menos dos jugadores registrados para jugar.", 
-            "Faltan Oponentes", 
-            JOptionPane.WARNING_MESSAGE);
+        if (sistema.getContadorPlayers() >= 2) {
+            this.dispose();
+            new SelecRival(playerActual, sistema).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Se necesitan al menos dos jugadores registrados para jugar.",
+                    "Faltan Oponentes",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }
-}
+
+    private void mostrarConfig() {
+        Configuracion c = new Configuracion(sistema);
+        c.setVisible(true);
+    }
+
+    private void mostrarReportes() {
+        if (this.sistema != null) {
+            Reportes r = new Reportes(this.playerActual, this.sistema);
+            r.setVisible(true);
+            this.dispose();
+        } else {
+            System.out.println("ERROR: 'this.sistema' es null en MenuPrincipal antes de abrir Reportes");
+        }
+    }
+
+    private void mostrarPerfil() {
+        MiPerfil p = new MiPerfil(this.playerActual, this.sistema);
+        p.setVisible(true);
+        this.dispose();
+    }
 
     private void manejarSalir() {
         MenuInicio mi = new MenuInicio(sistema);

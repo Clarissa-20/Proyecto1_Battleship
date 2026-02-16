@@ -16,8 +16,9 @@ public class VerDatos extends JFrame{
     private Player playerActual;
     private Battleship sistema;
 
-    public VerDatos(Player playerActual) {
+    public VerDatos(Player playerActual, Battleship sistema) {
         this.playerActual = playerActual;
+        this.sistema = sistema;
         
         setTitle("Battleship - Información de la Cuenta - " + playerActual.getUsername());
         setSize(800, 550);
@@ -78,7 +79,6 @@ public class VerDatos extends JFrame{
         estado.setForeground(Color.WHITE);
         
         String estadoTexto = playerActual.isActivo() ? "ACTIVO" : "INACTIVO";
-        //Color color = playerActual.isActivo() ? Color.GREEN : Color.RED;
 
         JLabel txtEstado = new JLabel(estadoTexto);
         txtEstado.setFont(new Font("Bodoni Bd BT", Font.BOLD, 25));

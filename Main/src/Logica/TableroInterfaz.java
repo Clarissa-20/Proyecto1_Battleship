@@ -81,13 +81,30 @@ public class TableroInterfaz extends JPanel {
                 g2.setColor(new Color(255, 255, 255, 30));
                 g2.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
 
-                String contenido = matriz[i][j];
+                /*String contenido = matriz[i][j];
 
                 if (sistema.getModoJuego().equalsIgnoreCase("TUTORIAL")) {
                     dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
                 } else {
                     boolean esMiTablero = sistema.getPlayerActual().getUsername().equals(nombreDuenio);
                     if (esMiTablero || contenido.equals("X") || contenido.equals("F")) {
+                        dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
+                    }
+                }*/
+                String contenido = matriz[i][j];
+
+                Juego vJuego = (parent instanceof Juego) ? (Juego) parent : null;
+                boolean faseColocacion = (vJuego != null) ? vJuego.isFaseColocacion() : false;
+                int jugadorColocando = (vJuego != null) ? vJuego.getJugadorColocando() : 0;
+
+                if (sistema.getModoJuego().equalsIgnoreCase("TUTORIAL")) {
+                    dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
+                } else {
+                    boolean esMiTablero = sistema.getPlayerActual().getUsername().equals(nombreDuenio);
+
+                    boolean mostrarPorColocacion = faseColocacion && (numTablero == jugadorColocando);
+
+                    if (esMiTablero || mostrarPorColocacion || contenido.equals("X") || contenido.equals("F")) {
                         dibujarSimbolo(g2, contenido, j * cellSize, i * cellSize, cellSize);
                     }
                 }
@@ -103,13 +120,13 @@ public class TableroInterfaz extends JPanel {
         g2.setFont(new Font("Arial Black", Font.BOLD, 18));
 
         switch (texto) {
-            case "X": 
+            case "X":
                 g2.setColor(Color.RED);
                 break;
-            case "F": 
+            case "F":
                 g2.setColor(Color.WHITE);
                 break;
-            default: 
+            default:
                 g2.setColor(Color.YELLOW);
                 break;
         }

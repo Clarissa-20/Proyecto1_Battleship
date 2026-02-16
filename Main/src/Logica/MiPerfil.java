@@ -78,17 +78,8 @@ public class MiPerfil extends JFrame{
         return btn;
     }
     
-    /*private JButton btnEliminar(String texto){
-        JButton btn = new JButton(texto);
-        btn.setFont(btnFont);
-        btn.setBackground(Color.RED.darker());
-        btn.setForeground(colorTexto);
-        btn.setFocusPainted(false);
-        return btn;
-    }*/
-    
     private void VerMisDatos(){
-        VerDatos info = new VerDatos(playerActual);
+        VerDatos info = new VerDatos(playerActual, sistema);
         info.setVisible(true);
         this.dispose();
     }

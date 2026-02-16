@@ -12,7 +12,9 @@ import java.awt.*;
  * @author HP
  */
 public class Juego extends JFrame {
+
     private Battleship sistema;
+    private Player dueñoSesion;
     private TableroInterfaz panelP1, panelP2;
     private JLabel infoPartida, lblTurno, lblModo, lblDificultad;
     private JLabel lblNombreP1, lblNombreP2;
@@ -22,11 +24,12 @@ public class Juego extends JFrame {
     private JButton btnConfirmarFlota;
 
     private boolean faseColocacion = true;
-    private int jugadorColocando = 1; 
+    private int jugadorColocando = 1;
     private int barcosP1 = 0, barcosP2 = 0;
 
     public Juego(Battleship sistema) {
         this.sistema = sistema;
+        this.dueñoSesion = sistema.getPlayerActual();
         configurarVentana();
         inicializarComponentes();
         refrescarPantalla();
@@ -70,7 +73,7 @@ public class Juego extends JFrame {
         lblNombreP1 = new JLabel(sistema.getPlayerActual().getUsername(), SwingConstants.CENTER);
         lblNombreP1.setForeground(Color.WHITE);
         lblNombreP1.setFont(new Font("Arial", Font.BOLD, 20));
-        panelP1 = new TableroInterfaz(1, sistema); 
+        panelP1 = new TableroInterfaz(1, sistema);
         bloqueP1.add(lblNombreP1, BorderLayout.NORTH);
         bloqueP1.add(panelP1, BorderLayout.CENTER);
 
@@ -79,7 +82,7 @@ public class Juego extends JFrame {
         lblNombreP2 = new JLabel(sistema.getRival().getUsername(), SwingConstants.CENTER);
         lblNombreP2.setForeground(Color.WHITE);
         lblNombreP2.setFont(new Font("Arial", Font.BOLD, 20));
-        panelP2 = new TableroInterfaz(2, sistema); 
+        panelP2 = new TableroInterfaz(2, sistema);
         bloqueP2.add(lblNombreP2, BorderLayout.NORTH);
         bloqueP2.add(panelP2, BorderLayout.CENTER);
 
@@ -102,7 +105,7 @@ public class Juego extends JFrame {
         comboOri = new JComboBox<>(new String[]{"Horizontal", "Vertical"});
         btnConfirmarFlota = new JButton("CONFIRMAR FLOTA");
         JButton btnRetirar = new JButton("RETIRAR");
-        btnRetirar.addActionListener(e -> {
+        /*btnRetirar.addActionListener(e -> {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "¿Estás seguro de que deseas retirarte de la batalla?",
                     "Confirmar Retirada", JOptionPane.YES_NO_OPTION);
@@ -110,7 +113,23 @@ public class Juego extends JFrame {
             if (respuesta == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(this, "DERROTA: Te has retirado.");
                 this.dispose();
-                new MenuPrincipal(sistema.getPlayerActual(), sistema).setVisible(true);
+                new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
+            }
+        });*/
+
+        btnRetirar.addActionListener(e -> {
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                    "¿Deseas retirarte? Esto contará como derrota.",
+                    "Confirmar Retirada", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                Player perdedor = sistema.getPlayerActual();
+                Player p1 = sistema.buscarPlayer(lblNombreP1.getText());
+                Player p2 = sistema.getRival();
+
+                Player ganador = (perdedor.getUsername().equals(p1.getUsername())) ? p2 : p1;
+
+                finalizarPartida(ganador, perdedor, true);
             }
         });
 
@@ -208,14 +227,39 @@ public class Juego extends JFrame {
             setMensaje(resultado + "!SIGUE ATACANDO: " + sistema.getPlayerActual().getUsername());
 
             if (sistema.hayGanador(numRival)) {
-                JOptionPane.showMessageDialog(this, "¡VICTORIA PARA " + sistema.getPlayerActual().getUsername() + "!");
-                new MenuPrincipal(sistema.getPlayerActual(), sistema).setVisible(true);
+                Player ganador = sistema.getPlayerActual();
+                Player perdedor = (numRival == 1) ? p1 : p2;
+                String modo = sistema.getModoJuego();
+
+                ganador.agregarPuntos(3);
+
+                String mensajeLog = ganador.getUsername() + " hundió todos los barcos de "
+                        + perdedor.getUsername() + " en modo " + modo;
+
+                dueñoSesion.agregarLog(mensajeLog);
+
+                JOptionPane.showMessageDialog(this, "¡VICTORIA PARA " + ganador.getUsername() + "!\n+3 Puntos para el ranking.");
+
+                new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
                 this.dispose();
-                return; 
+                return;
             }
         }
-
         refrescarPantalla();
+    }
+
+    private void finalizarPartida(Player ganador, Player perdedor, boolean fueRetirada) {
+        ganador.agregarPuntos(3);
+
+        String causa = fueRetirada ? " por retirada" : " hundiendo la flota";
+        String mensajeLog = ganador.getUsername() + " venció a " + perdedor.getUsername() + causa + " (Modo: " + sistema.getModoJuego() + ")";
+
+        dueñoSesion.agregarLog(mensajeLog);
+
+        JOptionPane.showMessageDialog(this, "¡FIN DE LA PARTIDA!\nGanador: " + ganador.getUsername() + "\nLog: " + mensajeLog);
+
+        new MenuPrincipal(dueñoSesion, sistema).setVisible(true);
+        this.dispose();
     }
 
     private void manejarConfirmacionFlota() {
@@ -307,12 +351,20 @@ public class Juego extends JFrame {
         p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), titulo, 0, 0, null, Color.WHITE));
         return p;
     }
-    
+
     public JLabel getLblNombreP1() {
         return lblNombreP1;
     }
 
     public JLabel getLblNombreP2() {
         return lblNombreP2;
+    }
+
+    public boolean isFaseColocacion() {
+        return faseColocacion;
+    }
+
+    public int getJugadorColocando() {
+        return jugadorColocando;
     }
 }

@@ -6,6 +6,7 @@ package Logica;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -251,7 +252,7 @@ public class Battleship {
                 }
             }
         }
-        return true; 
+        return true;
     }
 
     public Player getPlayerActual() {
@@ -327,6 +328,49 @@ public class Battleship {
             return p;
         }
         return null;
+    }
+
+    public boolean cambiarUser(String userActual, String passConfirmar, String nuevoUser) {
+        Player p = buscarPlayer(userActual);
+        if (p != null && p.getPassword().equals(passConfirmar)) {
+            if (buscarPlayer(nuevoUser) == null) {
+                p.setUsername(nuevoUser);
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "El nuevo username ya esta en uso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Contraseña incorrecta. No se puede cambiar el nombre.");
+        }
+        return false;
+    }
+
+    public boolean cambiarPassword(String userActual, String passVieja, String passNueva) {
+        Player p = buscarPlayer(userActual);
+        if (p != null && p.getPassword().equals(passVieja)) {
+            p.setPassword(passNueva);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "La contraseña actual no es correcta.");
+        }
+        return false;
+    }
+
+    public boolean eliminarCuenta(String username, String password) {
+        for (int i = 0; i < contadorPlayers; i++) {
+            if (listaPlayers[i].getUsername().equals(username)
+                    && listaPlayers[i].getPassword().equals(password)) {
+
+                for (int j = i; j < contadorPlayers - 1; j++) {
+                    listaPlayers[j] = listaPlayers[j + 1];
+                }
+
+                listaPlayers[contadorPlayers - 1] = null;
+                contadorPlayers--; 
+                return true;
+            }
+        }
+        return false; 
     }
 
     public int obtenerCantBarcos() {

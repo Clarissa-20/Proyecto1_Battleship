@@ -12,7 +12,8 @@ import javax.swing.border.TitledBorder;
  *
  * @author HP
  */
-public class EliminarCuenta extends JFrame{
+public class EliminarCuenta extends JFrame {
+
     private Player playerActual;
     private Battleship sistema;
     private JPasswordField txtConfirmarPassword;
@@ -34,8 +35,8 @@ public class EliminarCuenta extends JFrame{
         JPanel panel = new JPanel(new GridLayout(2, 2, 20, 50));
         panel.setOpaque(false);
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.BLACK, 5), "ELIMINAR CUENTA",
-            TitledBorder.LEFT, TitledBorder.TOP, new Font("Bodoni Bd BT", Font.BOLD, 30),  new Color(255, 204, 51)));
+                BorderFactory.createLineBorder(Color.BLACK, 5), "ELIMINAR CUENTA",
+                TitledBorder.LEFT, TitledBorder.TOP, new Font("Bodoni Bd BT", Font.BOLD, 30), new Color(255, 204, 51)));
 
         txtConfirmarPassword = new JPasswordField(5);
         JButton btnEliminar = new JButton("ELIMINAR CUENTA");
@@ -49,8 +50,8 @@ public class EliminarCuenta extends JFrame{
         panel.add(new JLabel(""));
         panel.add(btnEliminar);
 
-        //btnEliminar.addActionListener(e -> manejarEliminarCuenta());
-        
+        btnEliminar.addActionListener(e -> manejarEliminarCuenta());
+
         JButton btnVolver = new JButton("VOLVER");
         btnVolver.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
         btnVolver.setForeground(Color.WHITE);
@@ -58,7 +59,7 @@ public class EliminarCuenta extends JFrame{
         btnVolver.setBackground(Color.BLACK);
         btnVolver.setPreferredSize(new Dimension(250, 50));
         btnVolver.addActionListener(e -> vtnVolver());
-        
+
         JPanel panelbtn = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         panelbtn.setOpaque(false);
         panelbtn.add(btnVolver);
@@ -67,7 +68,7 @@ public class EliminarCuenta extends JFrame{
         cp.add(panel, BorderLayout.CENTER);
         this.setContentPane(cp);
     }
-    
+
     private JLabel crearLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Bodoni Bd BT", Font.BOLD, 20));
@@ -92,11 +93,37 @@ public class EliminarCuenta extends JFrame{
             }
         }
     }*/
-    
-    private void vtnVolver(){
+    private void manejarEliminarCuenta() {
+        String confirmarPassword = new String(txtConfirmarPassword.getPassword());
+
+        if (confirmarPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese su contraseña.");
+            return;
+        }
+
+        int confirmar = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro que desea eliminar su cuenta? Esta acción es irreversible.",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            boolean exito = sistema.eliminarCuenta(playerActual.getUsername(), confirmarPassword);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Cuenta eliminada con éxito.");
+                MenuInicio mi = new MenuInicio(sistema);
+                mi.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta. No se pudo eliminar la cuenta.");
+                txtConfirmarPassword.setText("");
+            }
+        }
+    }
+
+    private void vtnVolver() {
         MiPerfil mp = new MiPerfil(playerActual, sistema);
         mp.setVisible(true);
         this.dispose();
     }
-    
+
 }
